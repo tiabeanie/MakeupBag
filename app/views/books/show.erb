@@ -1,0 +1,6 @@
+  <%= @book.name %><br />
+  <%= @book.author %> <br />
+  Bookshelf: <a href="/bookshelves/<%=@book.bookshelf.id%>"><%= @book.bookshelf.name %></a> <br />
+  <a href="/books/<%=@book.id%>/edit">Edit</a>
+  <br />
+  <br />

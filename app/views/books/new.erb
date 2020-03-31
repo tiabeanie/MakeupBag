@@ -1,0 +1,18 @@
+<h1>Add a New Book</h1>
+
+<form action="/clubs" method="POST">
+  <label> Book Title </label>
+  <input type="text" name="name"> </br>
+
+  <label> Book's Author </label>
+  <input type="text" name="manufacturer"> </br>
+
+  <label> Which Bookshelf Does This Go On? </label>
+  <select name="bookshelf_id">
+    <% current_user.bookshelves.each do |bookshelf| %>
+      <option value=<%=bookshelf.id %>><%= bookshelf.name %></option>
+    <% end %>
+  </select>
+
+  <input type="submit" value="Shelve">
+</form>

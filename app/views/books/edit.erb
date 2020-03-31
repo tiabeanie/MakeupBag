@@ -1,0 +1,18 @@
+<h1>Edit <%= @book.name %></h1>
+
+<form action="/books/<%=@book.id %>" method="POST">
+  <label> Book Name </label>
+  <input type="text" name="name" value="<%=@book.name %>"> </br>
+
+  <label> Book Manufacturer </label>
+  <input type="text" name="manufacturer" value="<%=@book.manufacturer%>"> </br>
+
+  <label> Which Bookshelf Do You Want This On? </label>
+  <select name="bookshelf_id">
+    <% current_user.bookshelves.each do |bookshelf| %>
+      <option value=<%=bookshelf.id %> <%= "selected" if bookshelf.id==@book.bookshelf.id %> ><%= bookshelf.name %></option>
+    <% end %>
+  </select>
+
+  <input type="submit" value="Update">
+</form>
