@@ -1,0 +1,6 @@
+<p> ,<%= @user.username %>'s Bookshelves
+<% @user.bookshelves.each do |bookshelf| %>
+  <ul>
+    <li><a href="/bookshelves/<%=bookshelf.id%>"><%= bookshelf.name %></a></li>
+  </ul>
+<% end %>
