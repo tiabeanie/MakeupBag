@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Book Organizer</title>
+  </head>
+  <body>
+    <nav>
+      <% if logged_in? %>
+
+        <a href="/books/new"> New Book </a>
+        <a href="/logout"> Log Out </a>
+        <p>Welcome, <%=current_user.username %></p>
+
+      <% else %>
+        <a href="/signup">Sign Up</a>
+        <a href="/login"> Log In </a>
+      <%end %>
+
+    </nav>
+    <div class="container">
+      <h1>Reader</h1>
+      <% if !@error_message.nil? %>
+      <div class="alert alert-warning">
+        <%= @error_message %>
+      </div>
+    <% end %>
+      <%= yield %> 
+    </div>
+  </body>
+</html>
