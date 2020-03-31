@@ -1,0 +1,7 @@
+<% @bookshelves.each do |bookshelf| %>
+  <%= bookshelf.name %><br />
+  <%= bookshelf.color %> <br />
+  <a href="/bookshelves/<%=bookshelf.id%>/edit">Edit</a>
+  <br />
+  <br />
+<% end %>

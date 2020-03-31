@@ -1,0 +1,11 @@
+<h1>Edit <%= @bookshelf.name %></h1>
+
+<form action="/bookshelves/<%=@bookshelf.id %>" method="POST">
+  <label> Bookshelf Name </label>
+  <input type="text" name="name" value="<%=@bookshelf.name %>"> </br>
+
+  <label> Bookshelf Capacity </label>
+  <input type="text" name="color" value="<%=@bookshelf.color %>"> </br>
+
+  <input type="submit" value="Update">
+</form>

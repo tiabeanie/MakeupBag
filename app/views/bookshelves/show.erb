@@ -1,0 +1,12 @@
+<%= @bookshelf.name %><br />
+  <%= @bookshelf.color %> <br />
+
+  <h2>Books</h2>
+  <ul>
+  <% @bookshelf.books.each do |book| %>
+    <li><a href="/books/<%=book.id%>"><%= book.name %></a></li>
+  <% end%>
+  </ul>
+  <a href="/bookshelvess/<%=@bookshelf.id%>/edit">Edit</a>
+  <br />
+  <br />
