@@ -1,26 +1,26 @@
 class BookshelvesController < ApplicationController 
 
     get "/bookshelves" do
-      redirect_if_not_logged_in
+      redirect_to_login
       @bookshelves = Bookshelf.all
       erb :'bookshelves/index'
     end
   
     get "/bookshelves/new" do
-      redirect_if_not_logged_in
+      redirect_to_login
       @error_message = params[:error]
       erb :'bookshelves/new'
     end
   
     get "/bookshelves/:id/edit" do
-      redirect_if_not_logged_in
+      redirect_to_login
       @error_message = params[:error]
       @bookshelf = Bookshelf.find(params[:id])
       erb :'bookshelves/edit'
     end
   
     post "/bookshelves/:id" do
-      redirect_if_not_logged_in
+      redirect_to_login
       @bookshelf = Bookshelf.find(params[:id])
       unless Bookshelf.valid_params?(params)
         redirect "/bookshelves/#{@bookshelf.id}/edit?error=invalid bookshelf"
@@ -30,13 +30,13 @@ class BookshelvesController < ApplicationController
     end
   
     get "/bookshelves/:id" do
-      redirect_if_not_logged_in
+      redirect_to_login
       @bookshelf = Bookshelf.find(params[:id])
       erb :'bookshelves/show'
     end
   
     post "/bookshelves" do
-      redirect_if_not_logged_in
+      redirect_to_login
   
       unless Bookshelf.valid_params?(params)
         redirect "/bookshelves/new?error=invalid bookshelf"
