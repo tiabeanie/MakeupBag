@@ -16,7 +16,11 @@ class BookshelvesController < ApplicationController
       redirect_to_login
       @error_message = params[:error]
       @bookshelf = Bookshelf.find(params[:id])
-      erb :'bookshelves/edit'
+      if logged_in? && current_user.bookshelves.include?(@bookshelf)
+        erb :'bookshelves/edit'
+      else
+        redirect to "/bookshelves/new"
+      end 
     end
   
     post "/bookshelves/:id" do
