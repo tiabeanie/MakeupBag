@@ -7,13 +7,12 @@
   <label> Book's Author </label>
   <input type="text" name="author"> </br>
 
-  <label>bookshelf</label><br>
-  <input class="form-control" list="bookshelves" name="bookshelf[name]" value="<%=@book.bookshelf.name%>">
-  <datalist id="bookshelves">
-    <%current_user.bookshelves.each do |bookshelf|%>
-      <option value="<%=bookshelf.name%>"><%=bookshelf.name%></option>
-    <%end%>
-  </datalist>
+  <label> Which bookshelf should this be in?</label>
+  <select name="bookshelf_id">
+    <% current_user.bookshelves.each do |bookshelf| %>
+      <option value=<%=bookshelf.id %>><%= bookshelf.name %></option>
+    <% end %>
+  </select>
 
   <input type="submit" value="Shelve">
 </form>
