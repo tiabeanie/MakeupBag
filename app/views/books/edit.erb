@@ -9,12 +9,18 @@
   <label> Book Author </label>
   <input type="text" name="author" value="<%=@book.author%>"> </br>
 
-  <label> Which Bookshelf Do You Want This On? </label>
-  <select name="bookshelf_id">
+  <div class="form-group">
+  <strong><u>What Bookshelf Does This Go On?</u></strong>:<br>
     <% current_user.bookshelves.each do |bookshelf| %>
-      <option value=<%=bookshelf.id %> <%= "selected" if bookshelf.id==@book.bookshelf.id %> ><%= bookshelf.name %></option>
+    <div class="form-check">
+      <label class="form-check-label">
+        <input class="form-check-input" type="checkbox" name="bookshelf[bookshelf_ids][]" value="<%=bookshelf.id%>">
+          <%=bookshelf.name%>
+        </input>
+      </label>
+    </div>
     <% end %>
-  </select>
+  </div>
 
   <input type="submit" value="Update">
 </form>

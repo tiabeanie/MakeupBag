@@ -49,4 +49,14 @@ class BookshelvesController < ApplicationController
       @bookshelf.save
       redirect "/bookshelves"
     end
-  end
+
+    delete '/bookshelves/:id' do
+      @bookshelf = Bookshelf.find_by_id(params[:id])
+      if @bookshelf.user == current_user
+        @bookshelf.delete
+        redirect to "/users/#{current_user.id}"
+      else
+        redirect to "/bookshelves/#{@bookshelf.id}"
+      end
+    end
+  end   
