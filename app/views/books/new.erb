@@ -7,12 +7,18 @@
   <label> Book's Author </label>
   <input type="text" name="author"> </br>
 
-  <label> Which bookshelf should this be in?</label>
-  <select name="bookshelf_id">
+  <div class="form-group">
+  <strong><u>What bookshelf does this go on?</u></strong>:<br>
     <% current_user.bookshelves.each do |bookshelf| %>
-      <option value=<%=bookshelf.id %>><%= bookshelf.name %></option>
+    <div class="form-check">
+      <label class="form-check-label">
+        <input class="form-check-input" type="checkbox" name="bookshelf[bookshelf_ids][]" value="<%=bookshelf.id%>">
+          <%=bookshelf.name%>
+        </input>
+      </label>
+    </div>
     <% end %>
-  </select>
+  </div>
 
   <input type="submit" value="Shelve">
 </form>

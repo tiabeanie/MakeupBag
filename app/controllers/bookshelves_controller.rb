@@ -37,7 +37,6 @@ class BookshelvesController < ApplicationController
   
     post "/bookshelves" do
       redirect_to_login
-  
       unless Bookshelf.valid_params?(params)
         redirect "/bookshelves/new?error=invalid bookshelf"
       end

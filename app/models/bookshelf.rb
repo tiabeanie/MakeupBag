@@ -1,5 +1,5 @@
 class Bookshelf < ActiveRecord::Base
-    has_many :bookss
+    has_many :books
     belongs_to :user
   
     def self.valid_params?(params)
