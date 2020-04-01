@@ -9,3 +9,9 @@
 
   <input type="submit" value="Update">
 </form>
+
+ <p><form action="/bookshelves/<%=@bookshelf.id%>" method="post">
+    <input type="hidden" name="_method" value="delete">
+    <input type="submit" value="Delete Bookshelf">
+  </form></p>
+</div>
