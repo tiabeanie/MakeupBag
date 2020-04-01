@@ -30,7 +30,7 @@ class BooksController < ApplicationController
   
     get "/books/:id" do
      redirect_to_login 
-      @book = Book.find(params[:id])
+      @book = Book.find_by_id(params[:id])
       erb :'books/show'
     end
   
