@@ -22,7 +22,7 @@ class BooksController < ApplicationController
       end
     end
   
-    post "/books/:id" do
+    patch "/books/:id" do
      redirect_to_login 
       @book = Book.find(params[:id])
       unless Book.valid_params?(params)

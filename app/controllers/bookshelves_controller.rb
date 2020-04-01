@@ -2,7 +2,7 @@ class BookshelvesController < ApplicationController
 
     get "/bookshelves" do
       redirect_to_login
-      @bookshelves = Bookshelf.all
+      @bookshelves = current_user.bookshelves
       erb :'bookshelves/index'
     end
   
@@ -16,14 +16,14 @@ class BookshelvesController < ApplicationController
       redirect_to_login
       @error_message = params[:error]
       @bookshelf = Bookshelf.find(params[:id])
-      if logged_in? && current_user.bookshelves.include?(@bookshelf)
+      if @bookshelf.user == current_user
         erb :'bookshelves/edit'
       else
         redirect to "/bookshelves/new"
       end 
     end
   
-    post "/bookshelves/:id" do
+    patch "/bookshelves/:id" do
       redirect_to_login
       @bookshelf = Bookshelf.find(params[:id])
       unless Bookshelf.valid_params?(params)
@@ -44,7 +44,9 @@ class BookshelvesController < ApplicationController
       unless Bookshelf.valid_params?(params)
         redirect "/bookshelves/new?error=invalid bookshelf"
       end
-      Bookshelf.create(params)
+      @bookshelf = Bookshelf.new(params)
+      @bookshelf.user_id = current_user.id
+      @bookshelf.save
       redirect "/bookshelves"
     end
   end
