@@ -28,7 +28,7 @@ class BooksController < ApplicationController
       unless Book.valid_params?(params)
         redirect "/books/#{@book.id}/edit?error=invalid book"
       end
-      @book.update(params.select{|k|k=="name" || k=="author" || k=="bookshelf_id"})
+      @book.update(params.select{|k|k=="name" || k=="author" || k=="book_id"})
       redirect "/books/#{@book.id}"
     end
   
@@ -43,7 +43,9 @@ class BooksController < ApplicationController
       unless Book.valid_params?(params)
         redirect "/books/new?error=invalid book"
       end
-      Book.create(params)
+      @book = Book.new(params)
+      @book.user_id = current_user.id
+      @book.save
       redirect "/books"
     end
 

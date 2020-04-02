@@ -26,7 +26,7 @@ class BookshelvesController < ApplicationController
     patch "/bookshelves/:id" do
       redirect_to_login
       @bookshelf = Bookshelf.find(params[:id])
-      unless Bookshelf.valid_params?(params)
+      unless !Bookshelf.valid_params?(params)
         redirect "/bookshelves/#{@bookshelf.id}/edit?error=invalid bookshelf"
       end
       @bookshelf.update(params.select{|k|k=="name" || k=="color"})
@@ -41,7 +41,7 @@ class BookshelvesController < ApplicationController
   
     post "/bookshelves" do
       redirect_to_login
-      unless Bookshelf.valid_params?(params)
+      unless !Bookshelf.valid_params?(params)
         redirect "/bookshelves/new?error=invalid bookshelf"
       end
       @bookshelf = Bookshelf.new(params)
