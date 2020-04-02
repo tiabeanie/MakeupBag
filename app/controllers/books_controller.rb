@@ -23,15 +23,14 @@ class BooksController < ApplicationController
     end
   
     patch "/books/:id" do
-      binding.pry
      redirect_to_login 
       @book = Book.find_by_id(params[:id])
-      # unless Book.valid_params?(params)
-      #   redirect "/books/#{@book.id}/edit?error=invalid book"
-      # end
-      
-      # @book.update(params.select{|k|k=="name" || k=="author" || k=="book_id"})
-      # redirect "/books/#{@book.id}"
+      if @book.bookshelf.user == current_user
+      @book.update(params[:book])
+      redirect "/books/#{@book.id}"
+      else 
+      redirect "/books/#{@book.id}"
+      end
     end
   
     get "/books/:id" do
@@ -42,19 +41,18 @@ class BooksController < ApplicationController
   
     post "/books" do
      redirect_to_login
-     #if params[:name].blank? && params[:author].blank?
-      #  redirect "/books/new?error=invalid book"
-     #else 
       @book = Book.new(params)
-      # @book.user_id = current_user.id
-      @book.save
-      redirect "/books"
-     #end 
+      if @book.bookshelf.user == current_user
+        @book.save
+        redirect "/books"
+      else  
+        redirect "/books"
+      end 
     end
 
     delete '/books/:id' do
       @book = Book.find_by_id(params[:id])
-      if @book.user == current_user
+      if @book.bookshelf.user == current_user
         @book.delete
         redirect to "/users/#{current_user.id}"
       else
