@@ -14,7 +14,7 @@ class BooksController < ApplicationController
     get "/books/:id/edit" do
      redirect_to_login 
       @error_message = params[:error]
-      @book = Book.find(params[:id])
+      @book = Book.find_by_id(params[:id])
       if @book.user == current_user
         erb :'books/edit'
       else 
@@ -24,7 +24,7 @@ class BooksController < ApplicationController
   
     patch "/books/:id" do
      redirect_to_login 
-      @book = Book.find(params[:id])
+      @book = Book.find_by_id(params[:id])
       unless Book.valid_params?(params)
         redirect "/books/#{@book.id}/edit?error=invalid book"
       end
@@ -39,14 +39,15 @@ class BooksController < ApplicationController
     end
   
     post "/books" do
-     redirect_to_login 
-      unless Book.valid_params?(params)
-        redirect "/books/new?error=invalid book"
-      end
+     redirect_to_login
+     #if params[:name].blank? && params[:author].blank?
+      #  redirect "/books/new?error=invalid book"
+     #else 
       @book = Book.new(params)
       @book.user_id = current_user.id
       @book.save
       redirect "/books"
+     #end 
     end
 
     delete '/books/:id' do
