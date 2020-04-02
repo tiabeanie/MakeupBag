@@ -7,18 +7,18 @@
   <label> Book's Author </label>
   <input type="text" name="author"> </br>
 
-  <!-- <div class="form-group">
+  <div class="form-group">
   <strong><u>What Bookshelf Does This Go On?</u></strong>:<br>
     <% current_user.bookshelves.each do |bookshelf| %>
     <div class="form-check">
       <label class="form-check-label">
-        <input class="form-check-input" type="checkbox" name="bookshelf[bookshelf_ids][]" value="<%=bookshelf.id%>">
+        <input class="form-check-input" type="radio" name="bookshelf_id" value="<%=bookshelf.id%>">
           <%=bookshelf.name%>
         </input>
       </label>
     </div>
     <% end %>
-  </div>-->
+  </div>
 
   <input type="submit" value="Shelve">
 </form>
