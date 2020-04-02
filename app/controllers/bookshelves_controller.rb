@@ -16,6 +16,7 @@ class BookshelvesController < ApplicationController
       redirect_to_login
       @error_message = params[:error]
       @bookshelf = Bookshelf.find(params[:id])
+      binding.pry
       if @bookshelf.user == current_user
         erb :'bookshelves/edit'
       else
@@ -35,7 +36,7 @@ class BookshelvesController < ApplicationController
   
     get "/bookshelves/:id" do
       redirect_to_login
-      @bookshelf = Bookshelf.find(params[:id])
+      @bookshelf = Bookshelf.find_by_id(params[:id])
       erb :'bookshelves/show'
     end
   
