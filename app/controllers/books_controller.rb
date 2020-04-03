@@ -15,11 +15,11 @@ class BooksController < ApplicationController
      redirect_to_login 
       @error_message = params[:error]
       @book = Book.find_by_id(params[:id])
-      # if @book.user == current_user
+      if @book.bookshelf.user == current_user
         erb :'books/edit'
-      # else 
-        # redirect to "/books/new"
-      # end
+      else 
+        redirect to "/books/new"
+      end
     end
   
     patch "/books/:id" do
