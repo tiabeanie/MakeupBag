@@ -1,7 +1,7 @@
 class BooksController < ApplicationController 
     get "/books" do
      redirect_to_login 
-      @books = Book.all
+     @bookshelves = current_user.bookshelves
       erb :'books/index'
     end
   
