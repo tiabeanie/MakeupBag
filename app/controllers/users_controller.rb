@@ -50,11 +50,7 @@ class UsersController < ApplicationController
         session[:user_id] = user.id
         redirect "/bookshelves"
       else
-        if user
-          redirect to '/login'
-        else
-          redirect to '/login'
-        end
+        redirect to '/login'
       end
     end
   
