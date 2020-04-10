@@ -1,7 +1,7 @@
 class BooksController < ApplicationController 
     get "/books" do
-     redirect_to_login 
-     @books = current_user.books
+      redirect_to_login 
+      @books = current_user.books
       erb :'books/index'
     end
   
@@ -12,51 +12,44 @@ class BooksController < ApplicationController
     end
   
     get "/books/:id/edit" do
-     redirect_to_login 
+      redirect_to_login 
       @error_message = params[:error]
-      @book = Book.find_by_id(params[:id])
-      if @book.bookshelf.user == current_user
-        erb :'books/edit'
-      else 
-        redirect to "/books/new"
-      end
+      set_book
+      redirect_if_not_authorized(@book.bookshelf.user, "/books/new")
+      erb :'books/edit'
     end
   
     patch "/books/:id" do
-     redirect_to_login 
-      @book = Book.find_by_id(params[:id])
-      if @book.bookshelf.user == current_user
+      redirect_to_login 
+      set_book
+      redirect_if_not_authorized(@book.bookshelf.user, "/books/#{book.id}")
       @book.update(params[:book])
       redirect "/books/#{@book.id}"
-      else 
-      redirect "/books/#{@book.id}"
-      end
     end
   
     get "/books/:id" do
-     redirect_to_login 
-      @book = Book.find_by_id(params[:id])
+      redirect_to_login 
+      set_book
       erb :'books/show'
     end
   
     post "/books" do
-     redirect_to_login
+      redirect_to_login
       @book = Book.new(params)
-      if @book.bookshelf.user == current_user
-        @book.save
-        redirect "/books"
-      else  
-        redirect "/books"
-      end 
+      redirect_if_not_authorized(@book.bookshelf.user, "/books")
+      @book.save
+      redirect "/books"
     end
 
     delete '/books/:id' do
-      @book = Book.find_by_id(params[:id])
-      if @book.bookshelf.user == current_user
-        @book.delete
-        redirect to "/users/#{current_user.id}"
-      else
-        redirect to "/books/#{@book.id}"
-      end
+      set_book
+      redirect_if_not_authorized(@book.bookshelf.user, "/books/#{@book.id}")
+      @book.delete
+      redirect to "/users/#{current_user.id}"
+    end
+
+    private
+    def set_book
+     set_book
     end
   end

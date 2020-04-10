@@ -21,6 +21,12 @@ class ApplicationController < Sinatra::Base
       end
     end
 
+    def redirect_if_not_authorized(owner, path)
+      if owner != current_user
+        redirect path
+      end
+    end
+
     def logged_in?
       !!session[:user_id]
     end
